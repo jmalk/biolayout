@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp
+  spec="1.0+"
+  codebase="_BUILD_URL_">
+  <information>
+    <title>BioLayout Express 3D _VERSION_</title>
+    <vendor>Roslin Institute</vendor>
+    <homepage href="http://www.biolayout.org"/>
+    <description>BioLayout Express 3D _VERSION_</description>
+    <description kind="short">BioLayout Express 3D _VERSION_: A tool for the visualization and analysis of network graphs</description>
+    <icon href="BioLayoutExpress3DIcon.png"/>
+    <icon kind="splash" href="BioLayoutExpress3DLogo.png"/>
+    <offline-allowed/>
+  </information> 
+  <security>
+	<all-permissions/>
+  </security>
+  <resources>
+    <j2se href="http://java.sun.com/products/autodl/j2se" version="1.6+" max-heap-size="_HEAP_SIZE_"/>
+    <jar href="BLE3D-_VERSION_.jar" download="eager"/>
+  </resources>
+  <application-desc main-class="org.BioLayoutExpress3D.Layout">
+  </application-desc>
+</jnlp>

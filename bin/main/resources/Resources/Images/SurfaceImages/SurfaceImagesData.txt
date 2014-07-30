@@ -1,0 +1,8 @@
+# SpectrumImagesData.txt used for loading image files in various formats (png, jpg, gif)
+
+# All surface images
+JupiterSurfaceImage1.png
+JupiterSurfaceImage2.png
+JupiterSurfaceImage3.png
+SaturnSurfaceImage1.png
+SaturnSurfaceImage2.png

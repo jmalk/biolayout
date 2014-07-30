@@ -1,0 +1,3 @@
+1. Install NSIS (http://nsis.sourceforge.net/).
+2. Run makensis installer.nsi.
+3. See 1 and 2.

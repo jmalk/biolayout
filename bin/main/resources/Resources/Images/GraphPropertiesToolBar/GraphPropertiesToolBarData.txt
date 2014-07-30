@@ -1,0 +1,33 @@
+# GraphPropertiesToolBarData.txt used for loading image files in various formats (png, jpg, gif)
+
+# All graph properties toolbar images
+General.png
+GeneralHover.png
+GeneralPressed.png
+Layout.png
+LayoutHover.png
+LayoutPressed.png
+Rendering.png
+RenderingHover.png
+RenderingPressed.png
+MCL.png
+MCLHover.png
+MCLPressed.png
+Simulation.png
+SimulationHover.png
+SimulationPressed.png
+Parallelism.png
+ParallelismHover.png
+ParallelismPressed.png
+Search.png
+SearchHover.png
+SearchPressed.png
+Nodes.png
+NodesHover.png
+NodesPressed.png
+Edges.png
+EdgesHover.png
+EdgesPressed.png
+Classes.png
+ClassesHover.png
+ClassesPressed.png

@@ -1,0 +1,111 @@
+/*
+
+ BioLayoutExpress3D - A tool for visualisation
+ and analysis of biological networks
+
+ Copyright (c) 2006-2012 Genome Research Ltd.
+ Authors: Thanos Theo, Anton Enright, Leon Goldovsky, Ildefonso Cases, Markus Brosch, Stijn van Dongen, Michael Kargas, Benjamin Boyer and Tom Freeman
+ Contact: support@biolayout.org
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+ @ author, GLSL & OpenGL code author Thanos Theo, 2012
+
+*/
+
+#extension GL_ARB_tessellation_shader : enable
+#extension GL_EXT_gpu_shader4: enable
+
+const float MORPH_DESTINATION_FACTOR = 2.0;
+const float MORPH_CUBE_SIZE = 2.0;
+
+int LFSR_Rand_Gen(in int);
+float noise3f(in vec3);
+vec3 applyMorphing(in vec3, in float, in float);
+vec2 applySphericalCoordinates(in vec3, in vec3);
+vec2 interpolate2D(in vec2, in vec2, in vec2, in float, in float, in float);
+vec3 interpolate3D(in vec3, in vec3, in vec3, in float, in float, in float);
+vec2 createTextureCoord2D(in vec2, in vec2, in vec2, in float, in float, in float);
+vec3 createTextureCoord3D(in vec3, in vec3, in vec3, in float, in float, in float);
+
+int LFSR_Rand_Gen(in int n)
+{
+    // <<, ^ and & require GL_EXT_gpu_shader4.
+    n = (n << 13) ^ n;
+    return (n * (n * n * 15731 + 789221) + 1376312589) & 0x7fffffff;
+}
+
+float noise3f(in vec3 vector)
+{
+    ivec3 iVector = ivec3( floor(vector) );
+    int n = iVector.x + iVector.y * 57 + iVector.z * 113;
+    vec3 u = fract(vector);
+    u = u * u * (3.0 - 2.0 * u); 
+
+    float gradient = mix(mix(mix(float( LFSR_Rand_Gen( n + (0 + 57 * 0 + 113 * 0) ) ),
+                                 float( LFSR_Rand_Gen( n + (1 + 57 * 0 + 113 * 0) ) ), u.x),
+                             mix(float( LFSR_Rand_Gen( n + (0 + 57 * 1 + 113 * 0) ) ),
+                                 float( LFSR_Rand_Gen( n + (1 + 57 * 1 + 113 * 0) ) ), u.x), u.y),
+                         mix(mix(float( LFSR_Rand_Gen( n + (0 + 57 * 0 + 113 * 1) ) ),
+                                 float( LFSR_Rand_Gen( n + (1 + 57 * 0 + 113 * 1) ) ), u.x),
+                             mix(float( LFSR_Rand_Gen( n + (0 + 57 * 1 + 113 * 1) ) ),
+                                 float( LFSR_Rand_Gen( n + (1 + 57 * 1 + 113 * 1) ) ), u.x), u.y), u.z);
+
+    return (1.0 - gradient / 1073741824.0);
+}
+
+vec3 applyMorphing(in vec3 position, in float morphFactor, in float timer)
+{
+    vec3 vertexMorph = mix(position, ( MORPH_DESTINATION_FACTOR + 0.25 * noise3f(timer * position / 8.0) ) * position, morphFactor);
+    vec3 vertexCubeMorph = vertexMorph;
+    vertexCubeMorph *= 4.0 / length(vertexCubeMorph);
+    vertexCubeMorph = clamp(vertexCubeMorph, -MORPH_CUBE_SIZE, MORPH_CUBE_SIZE);
+
+    return mix( vertexMorph, vertexCubeMorph, 0.9 * abs( sin(timer) ) );
+}
+
+vec2 applySphericalCoordinates(in vec3 position, in vec3 normal)
+{
+    vec3 r = reflect( normalize(position), normalize(normal) );
+    // float m = 2.0 * sqrt( r.x * r.x + r.y * r.y + (r.z + 1.0) * (r.z + 1.0) );
+    float m = 2.0 * length( vec3(r.xy, r.z + 1.0) );
+    vec2 st = vec2(r.x, r.y) / m + 0.5;
+
+    return vec2(1.0 - st.s, st.t); // so as to create same texturing effects as the original BL pipeline
+}
+
+vec2 interpolate2D(in vec2 v0, in vec2 v1, in vec2 v2, in float u, in float v, in float w)
+{
+    return vec2(u) * v0 + vec2(v) * v1 + vec2(w) * v2;
+}
+
+vec3 interpolate3D(in vec3 v0, in vec3 v1, in vec3 v2, in float u, in float v, in float w)
+{
+    return vec3(u) * v0 + vec3(v) * v1 + vec3(w) * v2;
+}
+
+vec2 createTextureCoord2D(in vec2 t0, in vec2 t1, in vec2 t2, in float u, in float v, in float w)
+{
+    vec2 texCoords = interpolate2D(t0, t1, t2, u, v, w);
+
+    return vec2(1.0 - texCoords.s, texCoords.t);
+}
+
+vec3 createTextureCoord3D(in vec3 t0, in vec3 t1, in vec3 t2, in float u, in float v, in float w)
+{
+    vec3 texCoords = interpolate3D(t0, t1, t2, u, v, w);
+
+    return vec3(1.0 - texCoords.s, texCoords.t, texCoords.p);
+}

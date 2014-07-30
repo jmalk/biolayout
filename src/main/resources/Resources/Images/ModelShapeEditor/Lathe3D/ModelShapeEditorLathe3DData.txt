@@ -1,0 +1,5 @@
+# ModelShapeEditorData.txt used for loading image files in various formats (png, jpg, gif)
+
+# All Model Shape Editor images
+DeleteLast.png
+DeleteAll.png

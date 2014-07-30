@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <link rel="icon" href="/BioLayoutExpress3DIcon.png" type="image/x-icon">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <title>BioLayout Express 3D _VERSION_ _BUILD_NAME_</title>
+        <link rel="stylesheet" href="http://dev.biolayout.org/assets/css/bootstrap.css">
+    </head>
+    <body>
+        <h2>BioLayout Express 3D _VERSION_ _BUILD_NAME_</h2>
+        <p><a href="BLE3D-_VERSION_-installer.exe">Windows installer</a></p>
+        <p><a href="BLE3D-_VERSION_.dmg">Mac OS X DMG</a></p>
+        <p><a href="BLE3D-_VERSION_.jar">Naked JAR file</a></p>
+        <p><a href="WebStart32.jnlp">Webstart 32bit</a></p>
+        <p><a href="WebStart64.jnlp">Webstart 64bit</a></p>
+        <p><a href="BLE3D-_VERSION_-source.zip">Source code</a></p>
+        <p>Built from git revision _GIT_REV_</p>
+    </body>
+</html>

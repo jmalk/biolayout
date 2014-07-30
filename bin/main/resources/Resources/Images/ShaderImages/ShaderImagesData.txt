@@ -1,0 +1,4 @@
+# ShadersData.txt used for loading image files in various formats (png, jpg, gif)
+
+# All shaders images
+GlyphMosaic1024x1024.png

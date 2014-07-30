@@ -1,0 +1,25 @@
+ - A tool for the visualization and analysis of biological networks
+
+ Authors:	Thanos Theo, Anton Enright and Tom Freeman
+ Contributors:	Leon Goldovsky, Ildefonso Cases, Markus Brosch, Stijn van Dongen,
+	Michael Kargas and Benjamin Boyer
+ Copyright (©):	The University of Edinburgh, European Molecular Biology Laboratory,
+	Wellcome Trust Sanger Institute, Genome Research Limited 2006 - 2012
+
+ Website: www.biolayout.org
+ Contact: support@biolayout.org
+
+ Distributed under Version 3 of the GNU General Public License (GNU GPLv3) or any later version. See below for details.
+
+ If you use this program in your research then please cite:
+ Theocharidis et al; (2009), Freeman et al; (2007)
+
+ NOTICE:
+ This distribution includes the JOGL libraries and classes for OpenGL integration,
+ please see below for the SUN JOGL BSD License details.
+
+ This distribution also includes the JOCL libraries and classes for OpenCL integration,
+ please see below for the MIT/X11 License details.
+
+ BioLayout Express3D comes with ABSOLUTELY NO WARRANTY; for details please see below.
+ This is free software, and you are welcome to redistribute it under certain conditions; please see below for details.

@@ -1,0 +1,15 @@
+# Skins2DData.txt used for loading image files in various formats (png, jpg, gif)
+
+# All skins 2D images
+SimpleCircleNode256x256.png
+SimpleRectangleNode256x256.png
+SimpleRoundRectangleNode256x256.png
+SimpleTriangleNode256x256.png
+SimpleDiamondNode256x256.png
+SimpleParallelogramNode256x256.png
+SimpleHexagonNode256x256.png
+SimpleOctagonNode256x256.png
+SimpleTrapezoid1Node256x256.png
+SimpleTrapezoid2Node256x256.png
+SimpleTransitionVerticalNode46x256.png
+SimpleTransitionHorizontalNode256x46.png

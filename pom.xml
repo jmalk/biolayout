@@ -1,0 +1,662 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.BioLayoutExpress3D</groupId>
+    <artifactId>Layout</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <name>BioLayout Express 3D</name>
+    <url>http://biolayout.org</url>
+
+    <properties>
+        <versionNumber>development</versionNumber>
+        <jarName>BLE3D</jarName>
+        <outFilename>${jarName}-${versionNumber}</outFilename>
+        <mainClass>org.BioLayoutExpress3D.Layout</mainClass>
+        <manifestVersion>1.0.0.0</manifestVersion>
+        <copyright>© The University of Edinburgh, European Molecular Biology Laoratory, Wellcome Trust Sanger Institue, Genome Research Ltd. 2006-2014</copyright>
+        <icon>src/main/resources/Resources/Images/BioLayoutExpress3DIcon.ico</icon>
+
+        <minJavaVersion>1.6</minJavaVersion>
+        <!-- The -01 is because apparently the 2.1.5 release was screwed up and is missing all its class files -->
+        <jogampVersion>2.1.5-01</jogampVersion>
+        <joclVersion>0.1.7</joclVersion>
+        <sbgnVersion>milestone2</sbgnVersion>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <generated.sources.dir>${project.build.directory}/generated-sources/java</generated.sources.dir>
+        <buildconfig.template.file>src/main/java/org/BioLayoutExpress3D/BuildConfig.template</buildconfig.template.file>
+        <buildconfig.file>${generated.sources.dir}/org/BioLayoutExpress3D/BuildConfig.java</buildconfig.file>
+
+        <osx.app.dir>${project.build.directory}/dmg/${project.name}.app</osx.app.dir>
+
+        <debug.build>true</debug.build>
+        
+        <jarsigner.keystore>selfsign.jks</jarsigner.keystore>
+        <jarsigner.alias>selfsigned</jarsigner.alias>
+        <jarsigner.storepass>password</jarsigner.storepass>
+        <jarsigner.keypass>password</jarsigner.keypass>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <activation>
+                <property>
+                    <name>release</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <debug.build>false</debug.build>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jogamp.gluegen</groupId>
+            <artifactId>gluegen-rt</artifactId>
+            <version>${jogampVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jogamp.jogl</groupId>
+            <artifactId>jogl-all</artifactId>
+            <version>${jogampVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jocl</groupId>
+            <artifactId>jocl</artifactId>
+            <version>${joclVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.sbgn</groupId>
+            <artifactId>sbgn</artifactId>
+            <version>${sbgnVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.biopax.paxtools</groupId>
+            <artifactId>paxtools-core</artifactId>
+            <version>4.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pathwaycommons.cpath</groupId>
+            <artifactId>cpath-client</artifactId>
+            <version>4.1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>14.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout</artifactId>
+            <version>3.7.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swing-layout</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.17</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-maven-plugin</artifactId>
+            <version>4.0</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <!-- BioPAX release repository -->
+        <!--
+         <repository>
+            <id>biopax.releases</id>
+            <name>BioPAX Repository at Sourceforge</name>
+            <url>http://biopax.sourceforge.net/m2repo/releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        -->
+        <repository>
+                <id>pathway-commons</id>
+                <name>Pathway Commons Repository at Google Code</name>
+                <url>http://repo.pathway-commons.googlecode.com/hg/</url>
+                <snapshots>
+                    <enabled>true</enabled>
+                </snapshots>
+        </repository>
+        <repository>
+                <id>biopax.releases</id>
+                <name>BioPAX Repository</name>
+                <url>http://www.biopax.org/m2repo/releases/</url>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+        </repository>
+        <repository>
+                <id>biopax.snapshots</id>
+                <name>BioPAX Snapshots Repository</name>
+                <url>http://www.biopax.org/m2repo/snapshots/</url>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+        </repository>
+
+        <!-- This allows us to treat local jars (e.g. libsbgn) as
+             normal dependencies -->
+        <repository>
+            <id>jars</id>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>file://${project.basedir}/jars</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <!-- The name for the jar that doesn't include the dependencies -->
+        <finalName>${jarName}-${versionNumber}-no-deps</finalName>
+
+        <plugins>
+            <!-- This unpacks the jars we depend on into the final jar -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>jar-with-dependencies.xml</descriptor>
+                    </descriptors>
+                    <archive>
+                        <manifest>
+                            <mainClass>${mainClass}</mainClass>
+                            <packageName>org.BioLayoutExpress3D</packageName>
+                        </manifest>
+                        <manifestEntries>
+                            <url>${project.url}</url>
+                            <Application-Name>BioLayout Express3D</Application-Name>
+                            <Permissions>all-permissions</Permissions>
+                            <Application-Library-Allowable-Codebase>*</Application-Library-Allowable-Codebase>
+                            <Caller-Allowable-Codebase>*</Caller-Allowable-Codebase>
+                            <Codebase>*</Codebase>
+                        </manifestEntries>
+                    </archive>
+
+                    <!-- The name for the jar that includes the dependencies -->
+                    <finalName>${outFilename}</finalName>
+
+                    <!-- Stop the plugin appending jar-with-dependencies to the name -->
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <attach>false</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>1.5.2</version>
+                <executions>
+                    <execution>
+                        <id>l4j-32bit</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <outfile>${project.build.directory}/${outFilename}-32bit.exe</outfile>
+                            <jar>${project.build.directory}/${outFilename}.jar</jar>
+                            <icon>${icon}</icon>
+                            <errTitle>${project.name}</errTitle>
+                            <jre>
+                                <minVersion>${minJavaVersion}.0</minVersion>
+                                <maxHeapSize>920</maxHeapSize>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>${manifestVersion}</fileVersion>
+                                <txtFileVersion>${manifestVersion}</txtFileVersion>
+                                <fileDescription>${project.name}</fileDescription>
+                                <copyright>${copyright}</copyright>
+                                <productVersion>${manifestVersion}</productVersion>
+                                <txtProductVersion>${manifestVersion}</txtProductVersion>
+                                <productName>${project.name}</productName>
+                                <internalName>${jarName}</internalName>
+                                <originalFilename>${outFilename}.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>l4j-64bit</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <outfile>${project.build.directory}/${outFilename}-64bit.exe</outfile>
+                            <jar>${project.build.directory}/${outFilename}.jar</jar>
+                            <icon>${icon}</icon>
+                            <errTitle>${project.name}</errTitle>
+                            <jre>
+                                <minVersion>${minJavaVersion}.0</minVersion>
+                                <maxHeapSize>32000</maxHeapSize>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>${manifestVersion}</fileVersion>
+                                <txtFileVersion>${manifestVersion}</txtFileVersion>
+                                <fileDescription>${project.name}</fileDescription>
+                                <copyright>${copyright}</copyright>
+                                <productVersion>${manifestVersion}</productVersion>
+                                <txtProductVersion>${manifestVersion}</txtProductVersion>
+                                <productName>${project.name}</productName>
+                                <internalName>${jarName}</internalName>
+                                <originalFilename>${outFilename}.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Extract the native libraries we depend on into the resources tree -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+
+                    <execution>
+                        <id>unpack</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+
+                                <!-- jogl-all native windows-i586 -->
+                                <artifactItem>
+                                    <groupId>org.jogamp.jogl</groupId>
+                                    <artifactId>jogl-all</artifactId>
+                                    <version>${jogampVersion}</version>
+                                    <classifier>natives-windows-i586</classifier>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/classes/Resources/Libraries/Win32</outputDirectory>
+                                    <includes>*.dll</includes>
+                                    <excludes>*newt.*,*_mobile.*</excludes>
+                                </artifactItem>
+
+                                <!-- gluegen-rt native windows-i586 -->
+                                <artifactItem>
+                                    <groupId>org.jogamp.gluegen</groupId>
+                                    <artifactId>gluegen-rt</artifactId>
+                                    <version>${jogampVersion}</version>
+                                    <classifier>natives-windows-i586</classifier>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/classes/Resources/Libraries/Win32</outputDirectory>
+                                    <includes>*.dll</includes>
+                                    <excludes>*newt.*,*_mobile.*</excludes>
+                                </artifactItem>
+
+
+                                <!-- jogl-all native windows-amd64 -->
+                                <artifactItem>
+                                    <groupId>org.jogamp.jogl</groupId>
+                                    <artifactId>jogl-all</artifactId>
+                                    <version>${jogampVersion}</version>
+                                    <classifier>natives-windows-amd64</classifier>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/classes/Resources/Libraries/Win64</outputDirectory>
+                                    <includes>*.dll</includes>
+                                    <excludes>*newt.*,*_mobile.*</excludes>
+                                </artifactItem>
+
+                                <!-- gluegen-rt native windows-amd64 -->
+                                <artifactItem>
+                                    <groupId>org.jogamp.gluegen</groupId>
+                                    <artifactId>gluegen-rt</artifactId>
+                                    <version>${jogampVersion}</version>
+                                    <classifier>natives-windows-amd64</classifier>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/classes/Resources/Libraries/Win64</outputDirectory>
+                                    <includes>*.dll</includes>
+                                    <excludes>*newt.*,*_mobile.*</excludes>
+                                </artifactItem>
+
+
+                                <!-- jogl-all native linux-i586 -->
+                                <artifactItem>
+                                    <groupId>org.jogamp.jogl</groupId>
+                                    <artifactId>jogl-all</artifactId>
+                                    <version>${jogampVersion}</version>
+                                    <classifier>natives-linux-i586</classifier>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/classes/Resources/Libraries/Linux32</outputDirectory>
+                                    <includes>*.so</includes>
+                                    <excludes>*newt.*,*_mobile.*</excludes>
+                                </artifactItem>
+
+                                <!-- gluegen-rt native linux-i586 -->
+                                <artifactItem>
+                                    <groupId>org.jogamp.gluegen</groupId>
+                                    <artifactId>gluegen-rt</artifactId>
+                                    <version>${jogampVersion}</version>
+                                    <classifier>natives-linux-i586</classifier>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/classes/Resources/Libraries/Linux32</outputDirectory>
+                                    <includes>*.so</includes>
+                                    <excludes>*newt.*,*_mobile.*</excludes>
+                                </artifactItem>
+
+
+                                <!-- jogl-all native linux-amd64 -->
+                                <artifactItem>
+                                    <groupId>org.jogamp.jogl</groupId>
+                                    <artifactId>jogl-all</artifactId>
+                                    <version>${jogampVersion}</version>
+                                    <classifier>natives-linux-amd64</classifier>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/classes/Resources/Libraries/Linux64</outputDirectory>
+                                    <includes>*.so</includes>
+                                    <excludes>*newt.*,*_mobile.*</excludes>
+                                </artifactItem>
+
+                                <!-- gluegen-rt native linux-amd64 -->
+                                <artifactItem>
+                                    <groupId>org.jogamp.gluegen</groupId>
+                                    <artifactId>gluegen-rt</artifactId>
+                                    <version>${jogampVersion}</version>
+                                    <classifier>natives-linux-amd64</classifier>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/classes/Resources/Libraries/Linux64</outputDirectory>
+                                    <includes>*.so</includes>
+                                    <excludes>*newt.*,*_mobile.*</excludes>
+                                </artifactItem>
+
+
+                                <!-- jogl-all native macosx-universal -->
+                                <artifactItem>
+                                    <groupId>org.jogamp.jogl</groupId>
+                                    <artifactId>jogl-all</artifactId>
+                                    <version>${jogampVersion}</version>
+                                    <classifier>natives-macosx-universal</classifier>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/classes/Resources/Libraries/Mac</outputDirectory>
+                                    <includes>*.jnilib</includes>
+                                    <excludes>*newt.*,*_mobile.*</excludes>
+                                </artifactItem>
+
+                                <!-- gluegen-rt native macosx-universal -->
+                                <artifactItem>
+                                    <groupId>org.jogamp.gluegen</groupId>
+                                    <artifactId>gluegen-rt</artifactId>
+                                    <version>${jogampVersion}</version>
+                                    <classifier>natives-macosx-universal</classifier>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/classes/Resources/Libraries/Mac</outputDirectory>
+                                    <includes>*.jnilib</includes>
+                                    <excludes>*newt.*,*_mobile.*</excludes>
+                                </artifactItem>
+
+
+                                <!-- Note that the jocl libs aren't extracted directly into the resource tree as
+                                     they must be renamed by a set of antrun tasks below -->
+                                <artifactItem>
+                                    <groupId>org.jocl</groupId>
+                                    <artifactId>jocl</artifactId>
+                                    <version>${joclVersion}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <includes>lib/*</includes>
+                                </artifactItem>
+
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- The native libraries in the jocl jar aren't named suitably for our purposes, so
+                 we have this antrun task list to fix them up. Be aware that the original file names
+                 include the version number so will need adjusted if the version of jocl is changed -->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>joclCopy</id>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <target>
+                                <copy file="${project.build.directory}/lib/JOCL_0_1_7-windows-x86.dll"
+                                    tofile="${project.build.directory}/classes/Resources/Libraries/Win32/jocl.dll" />
+                                <copy file="${project.build.directory}/lib/JOCL_0_1_7-windows-x86_64.dll"
+                                    tofile="${project.build.directory}/classes/Resources/Libraries/Win64/jocl.dll" />
+                                <copy file="${project.build.directory}/lib/libJOCL_0_1_7-linux-x86.so"
+                                    tofile="${project.build.directory}/classes/Resources/Libraries/Linux32/libjocl.so" />
+                                <copy file="${project.build.directory}/lib/libJOCL_0_1_7-linux-x86_64.so"
+                                    tofile="${project.build.directory}/classes/Resources/Libraries/Linux64/libjocl.so" />
+                                <copy file="${project.build.directory}/lib/libJOCL_0_1_7-apple-x86_64.jnilib"
+                                    tofile="${project.build.directory}/classes/Resources/Libraries/Mac/libjocl.jnilib" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>osxAppCopy</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${osx.app.dir}/Contents/Resources/Java/"/>
+                                <mkdir dir="${osx.app.dir}/Contents/MacOS/"/>
+
+                                <copy file="${basedir}/src/main/osx/Contents/Info.plist"
+                                    tofile="${osx.app.dir}/Contents/Info.plist">
+                                    <filterset>
+                                        <filter token="name" value="${project.name}"/>
+                                        <filter token="version" value="${versionNumber}"/>
+                                        <filter token="mainClass" value="${mainClass}"/>
+                                        <filter token="jarFilename" value="${outFilename}.jar"/>
+                                    </filterset>
+                                </copy>
+                                <copy file="${basedir}/src/main/osx/Contents/Resources/Icon.icns"
+                                    tofile="${osx.app.dir}/Contents/Resources/Icon.icns" />
+                                <copy file="${project.build.directory}/${outFilename}.jar"
+                                    tofile="${osx.app.dir}/Contents/Resources/Java/${outFilename}.jar" />
+                                <symlink failonerror="false" overwrite="true"
+                                    link="${osx.app.dir}/Contents/MacOS/JavaApplicationStub"
+                                    resource="/System/Library/Frameworks/JavaVM.framework/Versions/Current/Resources/MacOS/JavaApplicationStub"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>maven-replacer-plugin</artifactId>
+                <version>1.4.0</version>
+                <executions>
+                    <execution>
+                        <id>BuildConfig.java</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <file>${buildconfig.template.file}</file>
+                            <outputFile>${buildconfig.file}</outputFile>
+                            <replacements>
+                                <replacement>
+                                    <token>@package@</token>
+                                    <value>${project.groupId}</value>
+                                </replacement>
+                                <replacement>
+                                    <token>@name@</token>
+                                    <value>${project.name}</value>
+                                </replacement>
+                                <replacement>
+                                    <token>@version@</token>
+                                    <value>${versionNumber}</value>
+                                </replacement>
+                                <replacement>
+                                    <token>@url@</token>
+                                    <value>${project.url}</value>
+                                </replacement>
+                                <replacement>
+                                    <token>@buildTime@</token>
+                                    <value>${maven.build.timestamp}</value>
+                                </replacement>
+                                <replacement>
+                                    <token>@debug@</token>
+                                    <value>${debug.build}</value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${generated.sources.dir}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>${minJavaVersion}</source>
+                    <target>${minJavaVersion}</target>
+                    <compilerArguments>
+                        <Xlint:unchecked />
+                        <Xlint:deprecation />
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jarsigner-plugin</artifactId>
+                <version>1.2</version>
+                <executions>
+                    <execution>
+                        <id>sign</id>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skip>false</skip>
+                    <archive>${project.build.directory}/${outFilename}.jar</archive>
+                    <keystore>${jarsigner.keystore}</keystore>
+                    <alias>${jarsigner.alias}</alias>
+                    <storepass>${jarsigner.storepass}</storepass>
+                    <keypass>${jarsigner.keypass}</keypass>
+                    <arguments>
+                        <argument>-sigalg</argument>
+                        <argument>SHA1withRSA</argument>
+                        <argument>-digestalg</argument>
+                        <argument>SHA1</argument>
+                    </arguments>                
+                </configuration>
+            </plugin>
+ 
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>4.0</version>
+                <configuration>
+                    <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>

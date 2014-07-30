@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>CFBundleName</key>
+    <string>@name@</string>
+    <key>CFBundleVersion</key>
+    <string>@version@</string>
+    <key>CFBundleAllowMixedLocalizations</key>
+    <string>true</string>
+    <key>CFBundleExecutable</key>
+    <string>JavaApplicationStub</string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>English</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleIconFile</key>
+    <string>Icon.icns</string>
+    <key>LSArchitecturePriority</key>
+    <array>
+      <string>x86_64</string>
+      <string>i386</string>
+      <string>ppc</string>
+    </array>
+    <key>Java</key>
+    <dict>
+      <key>MainClass</key>
+      <string>@mainClass@</string>
+
+      <!-- Put the menu bar at the top of the screen -->
+      <key>Properties</key>
+        <dict>
+          <key>apple.laf.useScreenMenuBar</key>
+          <string>true</string>
+        </dict>
+
+      <key>JVMVersion</key>
+      <string>1.6+</string>
+
+      <key>ClassPath</key>
+      <array>
+        <string>$JAVAROOT/@jarFilename@</string>
+      </array>
+
+      <!-- Use as much memory as possible -->
+      <key>VMOptions.ppc</key>
+      <string>-Xmx920m</string>
+      <key>VMOptions.i386</key>
+      <string>-Xmx920m</string>
+      <key>VMOptions.x86_64</key>
+      <string>-Xmx32000m</string>
+    </dict>
+
+    <key>CFBundleDocumentTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleTypeExtensions</key>
+        <array>
+          <string>expression</string>
+        </array>
+        <key>CFBundleTypeIconFile</key>
+        <string>Icon.icns</string>
+        <key>CFBundleTypeName</key>
+        <string>@name@ Expression File</string>
+        <key>CFBundleTypeOSTypes</key>
+        <array>
+          <string>expr</string>
+        </array>
+        <key>CFBundleTypeRole</key>
+        <string>Viewer</string>
+      </dict>
+    </array>
+  </dict>
+</plist>
