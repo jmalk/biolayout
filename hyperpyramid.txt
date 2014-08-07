@@ -1,0 +1,108 @@
+//BioLayout Express 3D Version 3.2 Layout File
+a1	a2
+a1	a3
+a1	a4
+a2	a5
+a2	a6
+a3	a5
+a3	a7
+a4	a6
+a4	a7
+a8	a5
+a8	a6
+a8	a7
+
+//NODECOORD	a1	500	500	500	0
+//NODECOORD	a2	500	500	-500	0
+//NODECOORD	a3	500	-500	500	0
+//NODECOORD	a4	-500	500	500	0
+//NODECOORD	a5	500	-500	-500	0
+//NODECOORD	a6	-500	500	-500	0
+//NODECOORD	a7	-500	-500	500	0
+//NODECOORD	a8	-500	-500	-500	0
+
+//NODESIZE	a1	50
+//NODESIZE	a2	50
+//NODESIZE	a3	50
+//NODESIZE	a4	50
+//NODESIZE	a5	50
+//NODESIZE	a6	50
+//NODESIZE	a7	50
+//NODESIZE	a8	50
+
+//NODECLASS	a1	a	shell
+//NODECLASS	a2	a	shell
+//NODECLASS	a3	a	shell
+//NODECLASS	a4	a	shell
+//NODECLASS	a5	a	shell
+//NODECLASS	a6	a	shell
+//NODECLASS	a7	a	shell
+//NODECLASS	a8	a	shell
+
+a1	b1
+a2	b2
+a3	b3
+a4	b4
+a5	b5
+a6	b6
+a7	b7
+a8	b8
+
+b1	b2
+b1	b3
+b1	b4
+b2	b5
+b2	b6
+b3	b5
+b3	b7
+b4	b6
+b4	b7
+b8	b5
+b8	b6
+b8	b7
+
+//NODECOORD	b1	250	250	250	250
+//NODECOORD	b2	250	250	-250	250
+//NODECOORD	b3	250	-250	250	250
+//NODECOORD	b4	-250	250	250	250
+//NODECOORD	b5	250	-250	-250	250
+//NODECOORD	b6	-250	250	-250	250
+//NODECOORD	b7	-250	-250	250	250
+//NODECOORD	b8	-250	-250	-250	250
+
+//NODESIZE	b1	50
+//NODESIZE	b2	50
+//NODESIZE	b3	50
+//NODESIZE	b4	50
+//NODESIZE	b5	50
+//NODESIZE	b6	50
+//NODESIZE	b7	50
+//NODESIZE	b8	50
+
+//NODECLASS	b1	b	shell
+//NODECLASS	b2	b	shell
+//NODECLASS	b3	b	shell
+//NODECLASS	b4	b	shell
+//NODECLASS	b5	b	shell
+//NODECLASS	b6	b	shell
+//NODECLASS	b7	b	shell
+//NODECLASS	b8	b	shell
+
+b1	c1
+b2	c1
+b3	c1
+b4	c1
+b5	c1
+b6	c1
+b7	c1
+b8	c1
+
+//NODECOORD	c1	0	0	0	500
+//NODESIZE	c1	50
+//NODECLASS	c1	c	shell
+	
+//CURRENTCLASSSET	shell
+//EDGECOLOR	#000000
+//NODECLASSCOLOR	a	shell	#ff0000
+//NODECLASSCOLOR	b	shell	#ffff00
+//NODECLASSCOLOR	c	shell	#ff00ff
