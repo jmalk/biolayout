@@ -1,0 +1,89 @@
+//BioLayout Express 3D Version 3.2  Layout File
+a	c				
+a	e				
+b	a				
+b	d				
+c	g				
+c	k				
+d	c				
+d	h				
+e	g				
+e	m				
+f	b				
+f	e				
+g	o				
+g	h				
+h	p				
+h	f				
+i	a				
+i	k				
+j	b				
+j	i				
+k	o				
+k	l				
+l	d				
+l	j				
+m	i				
+m	n				
+n	f				
+n	j				
+o	p				
+o	m				
+p	n				
+p	l
+
+//NODECOORD	a	250	250	250	250
+//NODECOORD	b	250	250	250	-250
+//NODECOORD	c	250	250	-250	250
+//NODECOORD	d	250	250	-250	-250
+//NODECOORD	e	250	-250	250	250
+//NODECOORD	f	250	-250	250	-250
+//NODECOORD	g	250	-250	-250	250
+//NODECOORD	h	250	-250	-250	-250
+//NODECOORD	i	-250	250	250	250
+//NODECOORD	j	-250	250	250	-250
+//NODECOORD	k	-250	250	-250	250
+//NODECOORD	l	-250	250	-250	-250
+//NODECOORD	m	-250	-250	250	250
+//NODECOORD	n	-250	-250	250	-250
+//NODECOORD	o	-250	-250	-250	250
+//NODECOORD	p	-250	-250	-250	-250
+
+//NODESIZE	a	50
+//NODESIZE	b	50
+//NODESIZE	c	50
+//NODESIZE	d	50
+//NODESIZE	e	50
+//NODESIZE	f	50
+//NODESIZE	g	50
+//NODESIZE	h	50
+//NODESIZE	i	50
+//NODESIZE	j	50
+//NODESIZE	k	50
+//NODESIZE	l	50
+//NODESIZE	m	50
+//NODESIZE	n	50
+//NODESIZE	o	50
+//NODESIZE	p	50
+
+//NODECLASS	a	real	cube
+//NODECLASS	c	real	cube
+//NODECLASS	e	real	cube
+//NODECLASS	g	real	cube
+//NODECLASS	i	real	cube
+//NODECLASS	k	real	cube
+//NODECLASS	m	real	cube
+//NODECLASS	o	real	cube
+//NODECLASS	b	four	cube
+//NODECLASS	d	four	cube
+//NODECLASS	f	four	cube
+//NODECLASS	h	four	cube
+//NODECLASS	j	four	cube
+//NODECLASS	l	four	cube
+//NODECLASS	n	four	cube
+//NODECLASS	p	four	cube
+
+//CURRENTCLASSSET	cube
+//EDGECOLOR	#000000
+//NODECLASSCOLOR	real	cube	#ff0000
+//NODECLASSCOLOR	four	cube	#0000ff
